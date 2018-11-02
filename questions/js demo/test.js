@@ -1,9 +1,19 @@
-Function.prototype.a = 'a';
-Object.prototype.b = 'b';
-function Person(){};
-var p = new Person();
-console.log('p.a: '+ p.a); // p.a: undefined
-console.log('p.b: '+ p.b); // p.b: b
-console.log('P.a', Person.a);
+Function.prototype.bind2 = function (thi$, ...args){
+  const fn = this;
+  return (...realArgs) => {
+    const finalArgs = [].concat(args, realArgs);
+    return fn.call(thi$, ...finalArgs);
+  }
+};
 
+function a (param1, param2){
+  
+  console.log(param1, param2, this.b, this.c);
+}
 
+const t = {
+  b: 'b',
+  c: 'c'
+};
+
+(a.bind(t, 1))('param');

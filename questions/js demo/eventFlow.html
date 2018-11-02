@@ -1,0 +1,59 @@
+<!--
+/**
+ *******************************************************************************
+ *                       Continental Confidential
+ *                  Copyright (c) Continental, AG. 2018
+ *
+ *      This software is furnished under license and may be used or
+ *      copied only in accordance with the terms of such license.
+ *******************************************************************************
+ * @file eventFlow.html
+ * @brief eventFlow html file
+ *******************************************************************************
+ */
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            padding: 50px;
+            border: 1px solid black;
+        }
+        .box1{
+            width: 300px;
+            height: 300px;
+        }
+       
+    </style>
+</head>
+<body>
+<div class="box1">
+    <div class="box2">
+        <div class="box3">
+            <button class="btn" >button</button>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+    var box1 = document.querySelector('.box1');
+    var box2 = document.querySelector('.box2');
+    var box3 = document.querySelector('.box3');
+    var btn = document.querySelector('.btn');
+    
+    box1.addEventListener('click', (e)=>log('box1', e), true);
+    box2.addEventListener('click', ()=>log('box2'), true);
+    box3.addEventListener('click', ()=>log('box3'), true);
+    btn.addEventListener('click', (e)=>log('btn', e), true);
+    
+    function log(msg, e){
+      console.log(msg, e);
+    }
+    
+</script>
+</html>

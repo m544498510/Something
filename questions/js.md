@@ -1,34 +1,89 @@
 1. js除了原型继承还有哪些其他的继承方式 
 
+   a. 原型继承
+
+   b. Call 继承（使用call直接修改this）
+
+   c. 遍历父类，手动添加方法和属性
+
 2. 数组去重的方法？ 
 
-3. 简述事件模型？
+   a. indexOf  (对象和NAN不去重)
 
-4. 获取页面元素的位置和宽高
+   b.filter （对象不去重 NaN 会被忽略掉）
 
-   - element.clientWidth = content + padding
+   ```js
+   var array = [1, 2, 1, 1, '1'];
+   
+   function unique(array) {
+       var res = array.filter(function(item, index, array){
+           return array.indexOf(item) === index;
+       })
+       return res;
+   }
+   
+   console.log(unique(array));
+   ```
 
-     element.clientHeight = content + padding
+   c. Set (对象和NAN不去重)
 
-     element.getBoundingClientRect() 返回值情况
+   ```js
+   const arr = [1,2,1,2];
+   const tmpSet = new Set(arr);
+   const result = [...tmpSet]
+   ```
 
-     left:包围盒左边 border 以外的边缘距页面左边的距离
+   d. Object
 
-     right:包围盒右边 border 以外的边缘距页面左边的距离
+   ```js
+   var array = [{value: 1}, {value: 1}, {value: 2}];
+   
+   function unique(array) {
+       var obj = {};
+       return array.filter(function(item, index, array){
+           console.log(typeof item + JSON.stringify(item))
+           return obj.hasOwnProperty(typeof item + JSON.stringify(item)) 
+               ? false 
+           	: (obj[typeof item + JSON.stringify(item)] = true)
+       })
+   }
+   
+   console.log(unique(array)); // [{value: 1}, {value: 2}]
+   
+   ```
 
-     top:包围盒上边 border 以外的边缘距页面顶部的距离
+3. 获取页面元素的位置和宽高
 
-     bottom:包围盒下边 border 以外的便于距页面顶部的距离
+   只读：
 
-     width: content + padding + border
+   * clientWidth 和 clientHeight：可视区域宽高，padding + content (如果出现滚动条，会减去滚动条宽高)
+   * offsetWidth 和 offsetHeight：border + padding + content （本身设定，与滚动条等其他信息无关）
+   * clientTop 和 clientLeft：border的宽度。
+   * offsetTop 和 offsetLeft：和offset parent的距离。（offset parent指最近一个具有定位属性的父级元素）
+   * scrollWidth 和 scrollHeight：这两个属性指的是当元素内部的内容超出其宽度和高度的时候，元素内部内容的实际宽度和高度，需要注意的是，当元素其中内容没有超过其高度或者宽度的时候，该属性是取不到的。
 
-     height: content + padding + border
+   可读可写：
 
-     注意，设置外边距时外边距合并的情况
+   * scrollTop 和 scrollLeft：在可视区域内的位置
 
-5. requestAnimationFrame原理？
+    
 
-6. 1) 
+   Event对象：
+
+   * clientX 和 clientY：鼠标相对浏览器可视区域左上角坐标
+   * screenX 和 screenY：鼠标相对屏幕左上角坐标
+   * offsetX 和 offsetY：相对事件源的坐标
+   * pageX 和 pageY：相对页面的坐标（包括不可见部分）
+
+4. requestAnimationFrame原理？
+
+   Window.requestAnimationFrame(callback)
+
+   callback(timeStamp<DOMHighResTimeStamp>)
+
+   通过requestAnimationFrame注册方法，浏览器每次render前会调用这些注册方法，并且注册只起效一次。
+
+5. 1) 
 
    ```js
    setTimeout(() => console.log('a'), 0);
@@ -72,9 +127,33 @@
    
    ```
 
-7. js bind 实现
+6. js bind 实现
 
-8. vue 中on，emit，off，once
+   ```js
+   Function.prototype.bind2 = function (context) {
+   
+       if (typeof this !== "function") {
+         throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+       }
+   
+       var self = this;
+       var args = Array.prototype.slice.call(arguments, 1);
+   
+       var fNOP = function () {};
+   
+       var fBound = function () {
+           var bindArgs = Array.prototype.slice.call(arguments);
+           return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
+       }
+   
+       fNOP.prototype = this.prototype;
+       fBound.prototype = new fNOP();
+       return fBound;
+   }
+   
+   ```
+
+7. vue 中on，emit，off，once
 
    ```JS
    // 参照 vue 源码实现
@@ -138,31 +217,31 @@
    };
    ```
 
-9. JS 双链表
+8. JS 双链表
 
-10. 哪些操作会引起重绘和重排
+9. 哪些操作会引起重绘和重排
 
-11. 页面性能检测
+10. 页面性能检测
 
-12. 数组继承
+11. 数组继承
 
-13. 二叉树
+12. 二叉树
 
-14. 树的广度和深度优先遍历
+13. 树的广度和深度优先遍历
 
-15. 进程和线程
+14. 进程和线程
 
-16. 创建线程的步骤
+15. 创建线程的步骤
 
-17. TCP为什么3次握手，每个阶段都做什么，和UDP的区别
+16. TCP为什么3次握手，每个阶段都做什么，和UDP的区别
 
-18. FTP
+17. FTP
 
-19. 页面解析顺序
+18. 页面解析顺序
 
-20. call apply bind arguments
+19. call apply bind arguments
 
-21. 实现栈
+20. 实现栈
 
-22. node 异步机制
+21. node 异步机制
 
