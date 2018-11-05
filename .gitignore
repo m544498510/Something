@@ -1,0 +1,12 @@
+# IDE config and system config file
+.idea
+.vscode
+.DS_Store
+
+# web frontend
+package-lock.json
+npm-debug.log
+node_modules
+dist
+coverage
+*/test/__mocks__/rdb-cloud-authenticate-center
