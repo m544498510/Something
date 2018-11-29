@@ -16,4 +16,4 @@ const t = {
   c: 'c'
 };
 
-(a.bind(t, 1))('param');
+(a.bind2(t, 1))('param');
