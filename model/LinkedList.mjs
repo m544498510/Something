@@ -1,4 +1,4 @@
-class LinkedList {
+export default class LinkedList {
   constructor(firstNodeValue){
     this.head = null;
     this.last = null;
@@ -126,22 +126,22 @@ class Node {
   }
 }
 
-//test code;
-const arr = [1,2,3];
-const list = LinkedList.arrToLinkedList(arr);
-console.log(list.toString());
-
-list.add(4).add(5).add(6);
-console.log(list.toString());
-
-list.addAfterPosition('error',1);
-console.log(list.toString());
-
-list.remove(2);
-console.log(list.toString());
-
-list.revert();
-console.log(list.toString());
-
+function testCase(){
+  const arr = [1,2,3];
+  const list = LinkedList.arrToLinkedList(arr);
+  console.log(list.toString());
+  
+  list.add(4).add(5).add(6);
+  console.log(list.toString());
+  
+  list.addAfterPosition('error',1);
+  console.log(list.toString());
+  
+  list.remove(2);
+  console.log(list.toString());
+  
+  list.revert();
+  console.log(list.toString());
+}
 
 
