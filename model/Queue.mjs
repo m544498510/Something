@@ -9,7 +9,7 @@ export default class Queue {
   
   pop(){
     if(this.isEmpty()){
-      return null;
+      throw new Error('Queue is empty!');
     } else {
       return this.data.splice(0, 1)[0];
     }
