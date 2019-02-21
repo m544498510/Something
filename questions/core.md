@@ -4,4 +4,6 @@
 
    tip:  1). Object 和 Function 互为实例
 
-2. 
+2.  **线程，进程** 
+
+   
