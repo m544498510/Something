@@ -52,30 +52,7 @@
    
    ```
 
-3. 获取页面元素的位置和宽高
-
-   只读：
-
-   * clientWidth 和 clientHeight：可视区域宽高，padding + content (如果出现滚动条，会减去滚动条宽高)
-   * offsetWidth 和 offsetHeight：border + padding + content （本身设定，与滚动条等其他信息无关）
-   * clientTop 和 clientLeft：border的宽度。
-   * offsetTop 和 offsetLeft：和offset parent的距离。（offset parent指最近一个具有定位属性的父级元素）
-   * scrollWidth 和 scrollHeight：这两个属性指的是当元素内部的内容超出其宽度和高度的时候，元素内部内容的实际宽度和高度，需要注意的是，当元素其中内容没有超过其高度或者宽度的时候，该属性是取不到的。
-
-   可读可写：
-
-   * scrollTop 和 scrollLeft：在可视区域内的位置
-
-    
-
-   Event对象：
-
-   * clientX 和 clientY：鼠标相对浏览器可视区域左上角坐标
-   * screenX 和 screenY：鼠标相对屏幕左上角坐标
-   * offsetX 和 offsetY：相对事件源的坐标
-   * pageX 和 pageY：相对页面的坐标（包括不可见部分）
-
-4. requestAnimationFrame原理？
+3. requestAnimationFrame原理？
 
    Window.requestAnimationFrame(callback)
 
@@ -83,7 +60,7 @@
 
    通过requestAnimationFrame注册方法，浏览器每次render前会调用这些注册方法，并且注册只起效一次。
 
-5. 1) 
+4. 1) 
 
    ```js
    setTimeout(() => console.log('a'), 0);
@@ -127,7 +104,7 @@
    
    ```
 
-6. js bind 实现
+5. js bind 实现
 
    ```js
    Function.prototype.bind2 = function (context) {
@@ -153,7 +130,7 @@
    
    ```
 
-7. vue 中on，emit，off，once
+6. vue 中on，emit，off，once
 
    ```JS
    // 参照 vue 源码实现
@@ -217,50 +194,9 @@
    };
    ```
 
-8. JS 双链表
+7. **ES6模块与CommonJS模块的差异** 
 
-9. 哪些操作会引起重绘和重排
-
-   重排：
-
-   - 添加或删除可见的DOM元素                                                      
-   - 元素位置改变
-   - 元素尺寸改变（margin，padding，border，content size）
-   - 内容改变
-   - 页面渲染器初始化
-   - 浏览器尺寸改变
-
-10. 页面性能检测
-
-11. 数组继承
-
-12. 二叉树
-
-13. 树的广度和深度优先遍历
-
-14. 进程和线程
-
-15. 创建线程的步骤
-
-16. TCP为什么3次握手，每个阶段都做什么，和UDP的区别
-
-17. FTP
-
-18. 页面解析顺序
-
-19. call apply bind arguments
-
-20. 实现栈
-
-21. node 异步机制
-
-22.  **js 自定义事件实现** 
-
-23. **ES6模块与CommonJS模块的差异** 
-
-    1. CommonJs 模块输出的是一个值的拷贝，ES6模块输出的是一个值的引用
-    2. CommonJS 模块是运行时加载，ES6模块是编译时输出接口
-    3. ES6输入的模块变量，只是一个符号链接，所以这个变量是只读的，对它进行重新赋值就会报错
-
-24.  **Node 事件循环，js 事件循环差异** 
+   1. CommonJs 模块输出的是一个值的拷贝，ES6模块输出的是一个值的引用
+   2. CommonJS 模块是运行时加载，ES6模块是编译时输出接口
+   3. ES6输入的模块变量，只是一个符号链接，所以这个变量是只读的，对它进行重新赋值就会报错
 
