@@ -12,3 +12,11 @@
 
 2. **有没有去研究webpack的一些原理和机制，怎么实现的** 
 
+3. webpack的原理, loader 和 plugin 是干什么的? 有自己手写过么 ?
+
+4. Rollup和webpack区别, treeshaking是什么?
+
+ 
+
+ 
+
