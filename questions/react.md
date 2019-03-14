@@ -58,6 +58,13 @@
 17. emit事件怎么发，需要引入什么
 18. 为什么虚拟dom比真实dom性能好
 19. 介绍高阶组件，和普通组件有什么区别；
+20. React怎么做数据的检查和变化 
+21. React中dom结构发生变化后内部经历了哪些变化
+22. 介绍react filber；介绍filber结构；画filber渲染树 
+23. react异步渲染的概念，介绍Time Slicing和suspense 
+24. connect原理；绑定connect的过程 
+25. Redux中间件接受几个参数；柯里化函数两端的参数具体是什么东西
+26. 中间件是怎么拿到store和action，然后怎么处理
 
  
 
