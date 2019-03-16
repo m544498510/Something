@@ -1,5 +1,9 @@
 1. 怎样设置两列布局？ 
 
+   + float+margin
+   + flex
+   + float+BFC
+
 2. CSS优先级 
 
    + 行内样式 ,  加1000
@@ -20,36 +24,65 @@
 
    absolute, fixed, relative,  static,  inherit
 
-   介绍CSS3中position:sticky 
+   sticky ： 粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位 
+
+   
 
 4. display属性介绍
 
-   block: 
+   + block: 块级元素（不设宽时，默认填满父元素）
+   + inline：行内元素（不能更改宽高，大小由内部元素决定；padding和margin的top和bottom不起作用）
+   + inline-block：同时具备上述它特点。
+   + flex：弹性元素
+
+   
 
 5. BFC
 
-6. HTML最小元素
+   Block Formatting Context是一个独立的布局环境，其中的元素布局是不受外界的影响。
 
-7. CSS选择器及其权重
+   满足一下一个条件即可：
 
-8. css 行内标签在DOM渲染时怎么解析
+   + float值不是none
+   + position不是static或relative
+   + display为inline-block，table-cell，flex，table-caption或inline-flex
+   + overflow不是visible
 
-9. css有哪些垂直水平居中方式？
+   特点：
 
-10. CSS Grid 和 Flexbox 
+   1. 内部的Box会在垂直方向上一个接一个的放置
+   2. 垂直方向上的距离由margin决定。（完整的说法是：属于同一个BFC的两个相邻Box的margin会发生重叠，与方向无关。）
+   3. 每个元素的左外边距与包含块的左边界相接触（从左向右），即使浮动元素也是如此。（这说明BFC中子元素不会超出他的包含块，而position为absolute的元素可以超出他的包含块边界）
+   4. BFC的区域不会与float的元素区域重叠
+   5. 计算BFC的高度时，浮动子元素也参与计算
+   6. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素
 
-11. 移动端适配
+   用途：
 
-    ```css
-    @media (min-width:321px) and (max-width:320px){
-    	
-    }
-    ```
+   + 避免外边距折叠
+   + 清除浮动
+   + 多栏布局
 
-12. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
+   
 
-13. **CSS中的pixel与硬件/物理中的pixel有何不同？** 
+6. css 行内标签在DOM渲染时怎么解析
 
-14. em和px的区别 
+7. css有哪些垂直水平居中方式？
 
-15. 如何实现高度自适应 
+8. CSS Grid 和 Flexbox 
+
+9. 移动端适配
+
+   ```css
+   @media (min-width:321px) and (max-width:320px){
+   	
+   }
+   ```
+
+10. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
+
+11. **CSS中的pixel与硬件/物理中的pixel有何不同？** 
+
+12. em和px的区别 
+
+13. 如何实现高度自适应 
