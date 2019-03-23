@@ -65,13 +65,36 @@
 
    
 
-6. css 行内标签在DOM渲染时怎么解析
+6. css有哪些垂直水平居中方式？
 
-7. css有哪些垂直水平居中方式？
+   + 绝对定位 + transform
 
-8. CSS Grid 和 Flexbox 
+     ```css
+     .container {
+         position: relative;
+     }
+     .child {
+     	position: absolute;
+     	top: 50%；
+     	left: 50%;
+     	transform: translate(-50%, -50%);
+     }
+     ```
 
-9. 移动端适配
+   + flex
+
+     ```css
+     .container {
+         display: flex;
+         align-items: center;
+     }
+     ```
+
+     
+
+7. CSS Grid 和 Flexbox 
+
+8. 移动端适配
 
    ```css
    @media (min-width:321px) and (max-width:320px){
@@ -79,10 +102,10 @@
    }
    ```
 
-10. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
+9. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
 
-11. **CSS中的pixel与硬件/物理中的pixel有何不同？** 
+10. **CSS中的pixel与硬件/物理中的pixel有何不同？** 
 
-12. em和px的区别 
+11. em和px的区别 
 
-13. 如何实现高度自适应 
+12. 如何实现高度自适应 

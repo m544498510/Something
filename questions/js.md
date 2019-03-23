@@ -202,31 +202,86 @@
 
 8. js 有哪些数据类型 如何判断? null 和 undefined区别 应用场景?数据类型分别存在哪里 
 
+   + 基本数据类型：string, number，boolean，null，undefined，object，symbol
+
+   + 引用数据类型：object，array，function
+
+     ```js
+     typeof null === 'object'
+     ```
+
+   + 引用类型可以用 instanceof 判断
+
+   + 基本数据类型存放在 栈内存 中，大小确定，可分配内存空间大小，按值存放
+
+   + 引用类型放在 堆内存 中。保存的栈内存的指针。
+
 9. new String('a') 和 'a' 是一样的么?
 
-10. ES6 generator函数简述
+   new String 返回一个object
 
-11. js浮点数运算不精确 如何解决?
+   
 
-12. 正则表达式如何匹配一段url ?在正则表达式中有哪几种作用?
+10. js浮点数运算不精确 如何解决?
 
-13. class 继承 和 原型链继承 的区别 
+    某些小数在二进制下是无限循环数，四舍五入后就失真了，带着浮点计算有误差。
 
-14. **Typed Arrays**  
+    + toFixed 保留小数。
 
-15. **讨论与 Promise 相关的问题。**
+    + 把要计算的数字升级（乘以10的n次幂）成计算机能够精确识别的整数，计算完以后再降级 
 
-    提示：及早求值（eager evaluation），尴尬的取消机制，用 then() 方法伪装 map() 和 flatMap() 等。
+      
 
-16. new是怎么实现的
+11. **TypedArrays**  
 
-17. JS里垃圾回收机制是什么？常用的是哪种？怎么处理的
+    用来处理二进制数据，分为两个部分：缓冲区和视图。 
 
-18. JS执行过程中分为哪些阶段
+    + 缓冲区由ArrayBuffer实现，一个缓冲区是一个代表某个数据块的对象。它没有格式，而且没有提供一个机制来访问或操纵其中的内容。 
+    + 视图提供了一个环境(context)，包括数据类型、起始偏移量以及元素数量。它把数据转化为实际上的类型化数组。视图由 ArrayBufferView和它的一些子类实现。 （[Int8Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int8Array) 、[Uint8Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array)、[Int16Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array)、[Uint16Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint16Array)、[Int32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int32Array)、[Uint32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint32Array)、[Float32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Float32Array)、[Float64Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Float64Array)  ）
 
-19. JS为什么要区分微任务和宏任务；介绍宏任务和微任务
+    
 
-20. 介绍immutable
+12. **讨论与 Promise 相关的问题。**
+
+    提示：尴尬的取消机制，用 then() 方法伪装 map() 和 flatMap() 等。
+
+    取消机制： 直接throw 中断信号，后续用高阶函数包装.catch处理中断信号。
+
+    //todo
+
+    
+
+    
+
+13. new是怎么实现的
+
+    (1) 创建一个新对象；
+
+     (2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象） ；
+
+     (3) 执行构造函数中的代码（为这个新对象添加属性） ；
+
+     (4) 返回新对象。 
+
+    
+
+14. JS里垃圾回收机制是什么？常用的是哪种？怎么处理的
+
+    + 标记清除法 
+
+      在函数声明一个变量的时候，就将这个变量标记为“进入环境”。 。而当变量离开环境时，则将其标记为“离开环境”。 
+
+    + 引用计数法 
+
+      引用计数的含义是跟踪记录每个值被引用的次数。 
+
+      
+
+15. JS执行过程中分为哪些阶段
+
+16. JS为什么要区分微任务和宏任务；介绍宏任务和微任务
+
+17. 介绍immutable
 
  
 
