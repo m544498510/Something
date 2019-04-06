@@ -193,6 +193,10 @@
 ## 10. Promise
 
 + 状态：pending，fulfilled，rejected，状态一旦改变，就不会再变。
++ 缺点：
+  + 无法取消promise
+  + 内部错误不会反应到外部。外部无法catch错误。
+  + 处于pending时，无法得知在哪个阶段。
 
 ## 11. Iterator
 
@@ -213,15 +217,16 @@
   };
   ```
 
-+  原生具备Iterator：
++ 原生具备Iterator：
 
-  + Array
-  + Map
-  + Set
-  + String
-  + TypedArray
-  + 函数的 arguments 对象
-  + NodeList 对象
+    + Array
+    + Map
+    + Set
+    + String
+    + TypedArray
+    + 函数的 arguments 对象
+    + NodeList 对象
+    + Generator 函数
 
 + 调用Iterator的场合
 
@@ -232,4 +237,178 @@
 
 + Iterator对象的 return()， throw()
 
-  + 
+  + return：当for... of 提前退出 （ 出错 或是 break ）
+  + throw : 配合 generator
+
++ 异步Iterator
+
+  ```js
+    const asyncIterator = createAsyncNumberIterator();
+    const p = asyncIterator.next(); // Promise
+    await p;// Object {value: 1, done: false}
+    await asyncIterator.next(); // Object {value: 2, done: false}
+    await asyncIterator.next(); // Object {value: 3, done: false}
+    await asyncIterator.next(); // Object {value: undefined, done: true}
+  
+  ```
+
++ 异步遍历器
+
+  ```js
+  async function test() {
+      for await (const p of promises) {
+          console.log(p);
+      }
+  }
+  test(); //1 ,2 3
+  ```
+
+  
+
+## 12. Generator
+
+```js
+function* helloWorldGenerator() {
+  yield 'hello';
+  return 'ending';
+}
+
+var hw = helloWorldGenerator();
+hw.next()
+// { value: 'hello', done: false }
+
+hw.next()
+// { value: 'ending', done: true }
+
+hw.next()
+// { value: undefined, done: true }
+```
+
++ 执行顺序：
+
+  + 调用generator后，不执行，只返回一个Iterator对象。
+  + 调用next()，执行到yield处，将yield右边边的表达式求值，并返回，将next里的参数赋值给yield左边。
+  + 重复上一步，一直到函数结尾，如果有return，返回return后面的值；如果没有，返回undefined。
+
++ throw()
+
+  ```js
+  var g = function* () {
+    try {
+      yield;
+    } catch (e) {
+      console.log('内部捕获', e);
+    }
+  };
+  
+  var i = g();
+  i.next();
+  
+  try {
+    i.throw('a');
+    i.throw('b');
+  } catch (e) {
+    console.log('外部捕获', e);
+  }
+  // 内部捕获 a
+  // 外部捕获 b
+  ```
+
++ return()
+
+  ```js
+  function* gen() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+  
+  var g = gen();
+  
+  g.next()        // { value: 1, done: false }
+  g.return('foo') // { value: "foo", done: true }
+  g.next()        // { value: undefined, done: true }
+  ```
+
+  + 参数就是返回值。
+  + 如果 Generator 函数内部有`try...finally`代码块，且正在执行`try`代码块，那么`return`方法会推迟到`finally`代码块执行完再执行。 
+
++ yield* 表达式
+
+  + 用来在一个 Generator 函数里面执行另一个 Generator 函数。 
+  + 等于展开子generator函数
+  + 后面不仅可以跟Generator函数，可以跟任何Iterable的对象。
+
++ context
+
+  + 一旦遇到yield命令，context暂时退出调用栈，context所有的变量和对象冻结保存，等下一次next()，再加入调用栈。
+
++ 用途：
+
+  + 状态机（状态无法被非法篡改，更简洁，更函数式）
+  + 异步处理
+  + Iterator生成器
+
+## 13. Async
+
++ 特点
+
+  + 自带内置执行器的Generator函数
+  + 更好的语义
+  + 更广适用性：可以是 Promise 对象和原始类型的值 （数值、字符串和布尔值，但这时会自动转成立即 resolved 的 Promise 对象） 
+  + 返回值是Promise
+
++ 注意事项：
+
+  + 一旦有一个async，全部方法都得async化，或者用promise处理。
+
+  + 最外层一定得用promise.catch 处理exception。
+
+  + await命令放在 try ... catch 里面。
+
+  + 如果多个await 没有继发关系，最好同时触发
+
+    ```js
+    // 写法一
+    let [foo, bar] = await Promise.all([getFoo(), getBar()]);
+    
+    // 写法二
+    let fooPromise = getFoo();
+    let barPromise = getBar();
+    let foo = await fooPromise;
+    let bar = await barPromise;
+    ```
+
+## 14. Class
+
++ 注意点：
+
+  + 不存在提升。
+
+    ```js
+    new Foo(); // ReferenceError
+    class Foo {}
+    ```
+
+  + 静态方法内this 自带类本身，而不是实例。
+
++ 私有方法或属性：
+
+  + 使用Symbol命名
+
+  + 方法移到类外部
+
+    ```js
+    class Widget {
+      foo (baz) {
+        bar.call(this, baz);
+      }
+    }
+    
+    function bar(baz) {
+      return this.snaf = baz;
+    }
+    ```
+
+    
+

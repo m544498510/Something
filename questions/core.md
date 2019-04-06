@@ -46,23 +46,30 @@
 
 6. http报文头部有哪些字段? 有什么意义 ?
 
+   + Content-Length：表示请求消息正文的长度。 
+   + Cookie：设置cookie,这是最重要的请求头信息之一 
+   + Host：初始URL中的主机和端口。 
+   + User-Agent：浏览器类型，如果Servlet返回的内容与浏览器类型有关则该值非常有用。 
+   + Accept：浏览器可接受的MIME类型。
+   +  Accept-Charset：浏览器可接受的字符集。
+   +  Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。
+   +  Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。 
+
 7. 主流框架的数据单向/双向绑定实现原理 ?
 
 8. JSbridge原理, js和native是如何通信的?
 
-9. **解释 JavaScript 并发模型**  （提示：事件循环，任务队列，调用栈，堆等）
+9. **客户端 MVC 与服务器端或经典 MVC 有何不同？** 
 
-10. **客户端 MVC 与服务器端或经典 MVC 有何不同？** 
-
-11. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
+10. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
 
     提示：Currying（柯里化），point-free 函数，partial function 应用，高阶函数，纯函数，独立副作用，record 类型（联合，代数数据类型）等。
 
-12. **不可变数据结构（immutable data structures）解决了哪些问题？**
+11. **不可变数据结构（immutable data structures）解决了哪些问题？**
 
     不可变结构是否有任何性能影响？ JS 生态系统中哪些库提供了不可变的数据结构？这些库的优点和缺点是什么？
 
-13. **大型应用程序是否应使用静态类型？**
+12. **大型应用程序是否应使用静态类型？**
 
     如何比较 TypeScript/Flow 与 Elm/ReasonML/PureScript 等 JS 转换语言？这些方法的优缺点是什么？
 
@@ -76,15 +83,15 @@
 
     提示：Structural 与 Nominal 类型系统，类型稳健性，工具/生态系统支持，正确性超过方便。
 
-14. **JavaScript 中有哪些突出的模块系统（module systems ）？评价 ES 模块系统。**
+13. **JavaScript 中有哪些突出的模块系统（module systems ）？评价 ES 模块系统。**
 
     列出在实现不同模块系统之间互操作所涉及的一些复杂性问题（主要对 ES 模块和 CommonJS 互操作感兴趣）
 
-15. **什么是sectioning算法？**
+14. **什么是sectioning算法？**
 
     提示：它也被称为 HTML5 大纲算法。特别是在构建具有语义结构的网站时非常重要。
 
-16. **有没有去研究webpack的一些原理和机制，怎么实现的**
+15. **有没有去研究webpack的一些原理和机制，怎么实现的**
 
     1. 解析webpack配置参数，合并从shell传入和webpack.config.js文件里配置的参数，生产最后的配置结果。
     2. 注册所有配置的插件，好让插件监听webpack构建生命周期的事件节点，以做出对应的反应。

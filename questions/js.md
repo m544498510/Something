@@ -279,9 +279,39 @@
 
 15. JS执行过程中分为哪些阶段
 
+    1. 预编译阶段
+
+       a. 给变量开辟内存空间，赋值undefined。
+
+       b. 给函数声明开辟空间
+
+    2. 执行阶段
+
+       开始依次执行
+
+       
+
 16. JS为什么要区分微任务和宏任务；介绍宏任务和微任务
 
+    + 宏任务（macro-task）：宿主环境提供的，例如整体代码script ，setTimeout, setInterval, 事件回调
+
+      微任务（micro-task）：语言标准提供的，例如promise，process.nextTick， MutationObserver 
+
+    + 执行一个宏任务后，执行所有的微任务，再执行下一个宏任务。
+
+    + 
+
 17. 介绍immutable
+
+    + 优点：
+      + 降低Mutable带来的复杂度
+      + 节省内存空间（结构共享，immutable库只会修改变化的节点和其父节点，可以理解为只重新创建出现变化的部分）
+      + Undo/Redo，Copy/Paste 
+      + 拥抱函数式编程
+    + 缺点：
+      + 学习成本，额外引入资源
+      + 容易和原生对象混淆
+      + 扩散性（用就得全用）
 
  
 

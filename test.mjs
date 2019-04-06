@@ -1,13 +1,36 @@
+console.log('1');
 
-const p = new Promise(resolve => {
-  setTimeout(() => {
-    resolve("123");
-  },100);
-});
+setTimeout(function() {
+  console.log('2');
+  process.nextTick(function() {
+    console.log('3');
+  })
+  new Promise(function(resolve) {
+    console.log('4');
+    resolve();
+  }).then(function() {
+    console.log('5')
+  })
+})
+process.nextTick(function() {
+  console.log('6');
+})
+new Promise(function(resolve) {
+  console.log('7');
+  resolve();
+}).then(function() {
+  console.log('8')
+})
 
-p.then(a => console.log(a));
-console.log(new Date());
-setTimeout(() => {
-  console.log(new Date());
-  p.then(a => console.log(new Date(), a));
-},1000);
+setTimeout(function() {
+  console.log('9');
+  process.nextTick(function() {
+    console.log('10');
+  })
+  new Promise(function(resolve) {
+    console.log('11');
+    resolve();
+  }).then(function() {
+    console.log('12')
+  })
+})
