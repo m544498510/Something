@@ -61,14 +61,15 @@
      + 检查发现变化后，触发组件视图刷新。
    + vue：
      + 发布-订阅模式
-     + 采用Object.defineProperty设置getter和setter方法，进行数据劫持。
+     + 采用Object.defineProperty设置getter和setter方法，进行数据劫持。（递归到所有子属性）
+     + ![construct](https://segmentfault.com/img/bVBQYu?w=730&h=390)
      + 
 
 7. **客户端 MVC 与服务器端或经典 MVC 有何不同？** 
 
 8. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
 
-   提示：Currying（柯里化），point-free 函数，partial function 应用，高阶函数，纯函数，独立副作用，record 类型（联合，代数数据类型）等。
+   提示：Currying（柯里化），point-free 函数，partial function 应用，高阶函数，纯函数，独立副作用，record 类型（联合，代数数据类型）等
 
 9. **不可变数据结构（immutable data structures）解决了哪些问题？**
 
