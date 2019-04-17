@@ -63,19 +63,16 @@
      + 发布-订阅模式
      + 采用Object.defineProperty设置getter和setter方法，进行数据劫持。（递归到所有子属性）
      + ![construct](https://segmentfault.com/img/bVBQYu?w=730&h=390)
-     + 
 
-7. **客户端 MVC 与服务器端或经典 MVC 有何不同？** 
-
-8. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
+7. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
 
    提示：Currying（柯里化），point-free 函数，partial function 应用，高阶函数，纯函数，独立副作用，record 类型（联合，代数数据类型）等
 
-9. **不可变数据结构（immutable data structures）解决了哪些问题？**
+8. **不可变数据结构（immutable data structures）解决了哪些问题？**
 
    不可变结构是否有任何性能影响？ JS 生态系统中哪些库提供了不可变的数据结构？这些库的优点和缺点是什么？
 
-10. **大型应用程序是否应使用静态类型？**
+9. **大型应用程序是否应使用静态类型？**
 
    如何比较 TypeScript/Flow 与 Elm/ReasonML/PureScript 等 JS 转换语言？这些方法的优缺点是什么？
 
@@ -105,3 +102,9 @@
     4. 在解析文件递归的过程中根据文件类型和loader配置找出合适的loader用来对文件进行转换。
     5. 递归完后得到每个文件的最终结果，根据entry配置生成代码块chunk。
     6. 输出所有chunk到文件系统。
+
+14. mvc
+
+    + MVC
+    + MVP
+    + MVVM
