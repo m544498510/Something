@@ -1,3 +1,7 @@
++ 以下所有架构都是视图与数据分离，遵循"关注点分离"的原则。
+
+
+
 #### MVC
 
 ![mvc](../resource/Standard-MVC.jpg)
@@ -9,7 +13,7 @@
 ![mvp](../resource/Standard-MVP.jpg)
 
 + view 很薄
-+ p 很重	
+	 p 很重	
 
 #### MVVM
 
