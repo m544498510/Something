@@ -92,7 +92,12 @@
 
      
 
-7. CSS Grid 和 Flexbox 
+7. Flexbox
+
+   + display: flex
+   +  子元素属性：
+     + flex-grow：拉伸因子， 0 为不拉伸（初始值）；其他值为比重
+     + [`align-self`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-self) 侧轴上单个项目对齐方式
 
 8. 移动端适配
 
@@ -104,8 +109,33 @@
 
 9. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
 
-10. **CSS中的pixel与硬件/物理中的pixel有何不同？** 
+   + 浮点指脱离文档流。缺点是父元素无法获取子元素高度。
+
+   + 清除浮动：
+
+     + ```CSS
+       .clearfix{
+       	zoom: 1;
+       }
+       .clearfix:after{
+           content: "";
+           display: block;
+           clear: both;
+           visibility:hidden;
+           height:0
+       }
+       ```
+
+     + 给父元素添加样式overflow: hidden;或者overflow: auto;
+
+     + 让父元素成为BFC
+
+       
+
+10. CSS中的pixel与硬件/物理中的pixel有何不同？
+
+    在小设备上，逻辑分辨率和物理分辨率是不同的。
+
+    
 
 11. em和px的区别 
-
-12. 如何实现高度自适应 

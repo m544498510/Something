@@ -23,54 +23,60 @@
 
 4. TCP为什么3次握手，每个阶段都做什么，和UDP的区别
 
-   TCP三次握手
-   第一次：客户端发送SYN给server，客户端进入SYN_SENT
-   第二次：server发送ACK和FIN给客户端，server进入SYN_RCVD
-   第三次:客户端发送ACK给server，双方进入ESTABLISHED
+   + TCP三次握手
+     第一次：客户端发送SYN给server，客户端进入SYN_SENT
+     第二次：server发送ACK和FIN给客户端，server进入SYN_RCVD
+     第三次:客户端发送ACK给server，双方进入ESTABLISHED
 
-      TCP四次挥手
+   + TCP四次挥手
 
-      第一次：客户端发送FIN包给server,此时客户端进入FIN_WAIT_1状态
-      第二次：server发送ACK给客户端，server进入CLOSE_WAIT
-      第三次：server发送FIN给客户端，server进入LAST_ACK
-      第四次：客户端发送ACK给server,server进入CLOSED状态
+        第一次：客户端发送FIN包给server,此时客户端进入FIN_WAIT_1状态
+        第二次：server发送ACK给客户端，server进入CLOSE_WAIT
+        第三次：server发送FIN给客户端，server进入LAST_ACK
+        第四次：客户端发送ACK给server,server进入CLOSED状态
 
-      TCP,UDP区别
+   + TCP,UDP区别
 
-      tcp是面向连接的，udp是无连接的
-      tcp提供可靠服务，udp尽最大努力交付，但不保证可靠
-      udp具有较好的实时性，工作效率比tcp高。
-      tcp只能点对点传输，udp可以一对一，一对多，多对多
+        tcp是面向连接的，udp是无连接的
+        tcp提供可靠服务，udp尽最大努力交付，但不保证可靠
+        udp具有较好的实时性，工作效率比tcp高。
+        tcp只能点对点传输，udp可以一对一，一对多，多对多
 
 5. http报文头部有哪些字段? 有什么意义 ?
 
    + Content-Length：表示请求消息正文的长度。 
+
    + Cookie：设置cookie,这是最重要的请求头信息之一 
+
    + Host：初始URL中的主机和端口。 
+
    + User-Agent：浏览器类型，如果Servlet返回的内容与浏览器类型有关则该值非常有用。 
+
    + Accept：浏览器可接受的MIME类型。
-   +  Accept-Charset：浏览器可接受的字符集。
-   +  Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。
-   +  Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。 
 
-6. 主流框架的数据单向/双向绑定实现原理 ?
+   + Accept-Charset：浏览器可接受的字符集。
 
-   + Angular1 脏检查：
-     + 各种事件会触发$digest，开启脏检查。
-     + 计算注册过的数据是否发生变化，第一遍发现有变化，再来一轮检查，直到没有变化位置。
-     + 检查发现变化后，触发组件视图刷新。
-   + vue：
-     + 发布-订阅模式
-     + 采用Object.defineProperty设置getter和setter方法，进行数据劫持。（递归到所有子属性）
-     + ![construct](https://segmentfault.com/img/bVBQYu?w=730&h=390)
+   + Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。
 
-7. **使函数式编程与面向对象或命令式编程不同的关键因素是什么？**
+   + Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。 
 
-   提示：Currying（柯里化），point-free 函数，partial function 应用，高阶函数，纯函数，独立副作用，record 类型（联合，代数数据类型）等
+     
 
-8. **不可变数据结构（immutable data structures）解决了哪些问题？**
+6. **不可变数据结构（immutable data structures）解决了哪些问题？**
 
    不可变结构是否有任何性能影响？ JS 生态系统中哪些库提供了不可变的数据结构？这些库的优点和缺点是什么？
+
+   1. - 优点：
+        - 降低Mutable带来的复杂度
+        - 节省内存空间（结构共享，immutable库只会修改变化的节点和其父节点，可以理解为只重新创建出现变化的部分）
+        - Undo/Redo，Copy/Paste 
+        - 拥抱函数式编程
+      - 缺点：
+        - 学习成本，额外引入资源
+        - 容易和原生对象混淆
+        - 扩散性（用就得全用）
+
+    
 
 9. **大型应用程序是否应使用静态类型？**
 
