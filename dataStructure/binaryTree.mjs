@@ -58,6 +58,7 @@ function breathFirstOrder(tree){
     }
     if(node.right){
       queue.push(node.right);
+      
     }
   }
   return result;
