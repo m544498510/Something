@@ -1,16 +1,3 @@
-/**
- *******************************************************************************
- *                       Continental Confidential
- *                  Copyright (c) Continental, AG. 2019
- *
- *      This software is furnished under license and may be used or
- *      copied only in accordance with the terms of such license.
- *******************************************************************************
- * @file Observer.mjs
- * @brief
- *******************************************************************************
- */
-
 export function observable(target) {
   const newTarget = new Proxy(target, {
     set: (targetObj, propKey, value, receiver) => {

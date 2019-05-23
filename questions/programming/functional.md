@@ -15,7 +15,10 @@
 
   
 
-+ 函子（functor）：输入输出是范畴的范畴，高阶范畴
++ 函子（functor）：
+
+  + 输入输出是范畴的范畴，高阶范畴
+  + mappable，具有map方法的对象，都可以认为是函子，比如 "给定map参数的数组对象”。
 
 ### higher-order function
 
