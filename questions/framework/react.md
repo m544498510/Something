@@ -35,38 +35,94 @@
 
    
 
-3. react和vue的比较 ? 
+3. react 生命周期， v16 和 之前的区别，新加的方法有什么用，有用过吗？
 
-4. DIFF算法为什么是O(n)复杂度而不是O(n^3)
+   + 旧生命周期
 
-5. react 生命周期， v16 和 之前的区别，新加的方法有什么用，有用过吗？
+   ![旧生命周期](../resource/reactLifeCycle_old.png)
 
-6. 为什么要删掉 componentWillReceiveProps，之前用的很顺手啊？
+   + tips：
+     + componentWillMount：注册事件监听
+     + componentDidMount：ajax请求
+     + componentWillReceiveProps ：用于修改state（不会引起二次渲染），以及监听props的业务逻辑
+     + componentWillUnmount：撤销事件监听
 
-7. react HOC 原理，作用，什么情况下会选择用 HOC
+   + 新生命周期
 
-8. react-router 中 withRouter 实现原理
+     + 原有的render前的生命周期会被多次调用，例如componentWillMount
 
-9. Redux-saga 对比 redux-thunk 和 redux-promise 的优势，为什么要引一个这么大的包
+     + componentWillMount，componentWillReceiveProps，componentWillUpdate都被getDerivedStateFromProps替代。
 
-10. 写 React/Vue 项目时为什么要在组件中写 key，其作用是什么？
+     + 具体：
 
-   在执行diff算法时，更快的找到对应的节点
+       1. `componentDidCatch(error, info)`：
 
-11. **angular 双向数据绑定与vue数据的双向数据绑定**
+          如果 `render()` 函数抛出错误，则会触发该函数。
 
-    1. 二者都是 MVVM 模式开发的典型代表
-    2. angular 是通过脏检测实现，angular 会将 UI 事件，请求事件，settimeout 这类延迟，的对象放入到事件监测的脏队列，当数据变化的时候，触发 $diget 方法进行数据的更新，视图的渲染
-    3. vue 通过数据属性的数据劫持和发布订阅的模式实现，大致可以理解成由3个模块组成，observer 完成对数据的劫持，compile 完成对模板片段的渲染，watcher 作为桥梁连接二者，订阅数据变化及更新视图
+          error为错误message，info包含错误堆栈信息。
 
-12. React 可以用两种方法声明 Component，它们有什么区别？什么情况你会选择哪一种？
+       2. `static getDerivedStateFromProps(nextProps, prevState)`：
 
-    扩展问题：如果是 functional Component，为什么我们还要在第一行引入 import React from 'react'? 在这个文件中，应该根本就没有用到 React 的库。
+          无论是Mounting还是Updating，也无论是因为什么引起的Updating，全部都会被调用。它应该返回一个对象来更新状态，或者返回null来不更新任何内容。
 
-13. 调用 setState 之后发生了什么？
-    在代码中调用setState函数之后，React 会将传入的参数对象与组件当前的状态合并，然后触发所谓的调和过程（Reconciliation）。经过调和过程，React 会以相对高效的方式根据新的状态构建 React 元素树并且着手重新渲染整个UI界面。在 React 得到元素树之后，React 会自动计算出新的树与老树的节点差异，然后根据差异对界面进行最小化重渲染。在差异计算算法中，React 能够相对精确地知道哪些位置发生了改变以及应该如何改变，这就保证了按需更新，而不是全部重新渲染。
+       3. `static getSnapshotBeforeUpdate(prevProps, prevState)`：
 
-    
+          被调用于render之后，可以读取但无法使用DOM的时候。它使您的组件可以在可能更改之前从DOM捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给componentDidUpdate（）。
+
+       ![](../resource/reactLifeCycle_new.jpg)
+
+   
+
+4. react HOC 原理，作用，什么情况下会选择用 HOC
+
+   + 属性代理
+
+     ```js
+     const HOC = (WrappedComponent) =>
+       class WrapperComponent extends Component {
+         render() {
+           return <WrappedComponent {...this.props} />;
+         }
+     }
+     ```
+
+     + 操作props
+     + 获得`refs`的引用
+     + 用其他元素包裹组件
+
+   + 反向继承
+
+     ```js
+     const HOC = (WrappedComponent) =>
+       class extends WrappedComponent {
+         render() {
+           return super.render();
+         }
+       }
+     ```
+
+     + 渲染劫持
+
+5. Redux-saga 对比 redux-thunk 和 redux-promise 的优势，为什么要引一个这么大的包
+
+   + redux-thunk：模板代码过多
+
+   + redux-promise：payload为promise，resolve和reject都会出发reducer，但payload不同。问题在于无法处理乐观更新。
+
+   + redux-saga：
+
+     + 专门的异步action管理器。
+
+     + 利用generator实现。
+
+     + 能够取消异步流程，容易处理竞态问题。
+
+       
+
+6. 调用 setState 之后发生了什么？
+   在代码中调用setState函数之后，React 会将传入的参数对象与组件当前的状态合并，然后触发所谓的调和过程（Reconciliation）。经过调和过程，React 会以相对高效的方式根据新的状态构建 React 元素树并且着手重新渲染整个UI界面。在 React 得到元素树之后，React 会自动计算出新的树与老树的节点差异，然后根据差异对界面进行最小化重渲染。在差异计算算法中，React 能够相对精确地知道哪些位置发生了改变以及应该如何改变，这就保证了按需更新，而不是全部重新渲染。
+
+
 
 14. React 中 refs 的作用是什么？ 
 
