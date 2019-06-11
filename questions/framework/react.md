@@ -121,41 +121,39 @@
 
 6. 调用 setState 之后发生了什么？
    在代码中调用setState函数之后，React 会将传入的参数对象与组件当前的状态合并，然后触发所谓的调和过程（Reconciliation）。经过调和过程，React 会以相对高效的方式根据新的状态构建 React 元素树并且着手重新渲染整个UI界面。在 React 得到元素树之后，React 会自动计算出新的树与老树的节点差异，然后根据差异对界面进行最小化重渲染。在差异计算算法中，React 能够相对精确地知道哪些位置发生了改变以及应该如何改变，这就保证了按需更新，而不是全部重新渲染。
+   
+   
+   
+7. 传入 setState 函数的第二个参数的作用是什么？
 
+   该函数会在setState函数调用完成并且组件开始重渲染的时候被调用，我们可以用该函数来监听渲染是否完成：
 
+   ```js
+   this.setState(
+     { username: 'tylermcginnis33' },
+     () => console.log('setState has finished and the component has re-rendered.')
+   )
+   ```
 
-14. React 中 refs 的作用是什么？ 
+    
 
-15. 在生命周期中的哪一步你应该发起 AJAX 请求？
-    我们应当将AJAX 请求放到 componentDidMount 函数中执行，主要原因有下：
+8. state和props触发更新的生命周期分别有什么区别
 
-    - React 下一代调和算法 Fiber 会通过开始或停止渲染的方式优化应用性能，其会影响到 componentWillMount 的触发次数。对于 componentWillMount 这个生命周期函数的调用次数会变得不确定，React 可能会多次频繁调用 componentWillMount。如果我们将 AJAX 请求放到 componentWillMount 函数中，那么显而易见其会被触发多次，自然也就不是好的选择。
-    - 如果我们将 AJAX 请求放置在生命周期的其他函数中，我们并不能保证请求仅在组件挂载完毕后才会要求响应。如果我们的数据请求在组件挂载之前就完成，并且调用了setState函数将数据添加到组件状态中，对于未挂载的组件则会报错。而在 componentDidMount 函数中进行 AJAX 请求则能有效避免这个问题。
+   旧生命周期里，props多一个componentWillRecevieProps；
 
-16. 传入 setState 函数的第二个参数的作用是什么？
+   新的无区别。
 
-    该函数会在setState函数调用完成并且组件开始重渲染的时候被调用，我们可以用该函数来监听渲染是否完成：
+   
 
-    ```js
-    this.setState(
-      { username: 'tylermcginnis33' },
-      () => console.log('setState has finished and the component has re-rendered.')
-    )
-    ```
+9. 介绍react filber；介绍filber结构；画filber渲染树 
 
- 
+10. react异步渲染的概念，介绍Time Slicing和suspense 
 
-16. state和props触发更新的生命周期分别有什么区别
-17. emit事件怎么发，需要引入什么
-18. 为什么虚拟dom比真实dom性能好
-19. 介绍高阶组件，和普通组件有什么区别；
-20. React怎么做数据的检查和变化 
-21. React中dom结构发生变化后内部经历了哪些变化
-22. 介绍react filber；介绍filber结构；画filber渲染树 
-23. react异步渲染的概念，介绍Time Slicing和suspense 
-24. connect原理；绑定connect的过程 
-25. Redux中间件接受几个参数；柯里化函数两端的参数具体是什么东西
-26. 中间件是怎么拿到store和action，然后怎么处理
+11. connect原理；绑定connect的过程 
+
+12. Redux中间件接受几个参数；柯里化函数两端的参数具体是什么东西
+
+13. 中间件是怎么拿到store和action，然后怎么处理
 
  
 
