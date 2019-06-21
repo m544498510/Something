@@ -22,7 +22,7 @@
 
 3. position属性介绍
 
-   absolute, fixed, relative,  static,  inherit
+   absolute, fixed, relative,  static（默认值）,  inherit
 
    sticky ： 粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位 
 
@@ -92,7 +92,7 @@
 
      
 
-7. Flexbox
+7. Flexbox ？
 
    + display: flex
    +  子元素属性：
@@ -120,13 +120,11 @@
        .clearfix:after{
            content: "";
            display: block;
-           clear: both;
+           clear: both;			//元素两边都不能浮动
            visibility:hidden;
            height:0
        }
        ```
-
-     + 给父元素添加样式overflow: hidden;或者overflow: auto;
 
      + 让父元素成为BFC
 

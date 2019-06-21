@@ -10,7 +10,7 @@
 
    a. indexOf  (对象和NAN不去重)
 
-   b.filter （对象不去重 NaN 会被忽略掉）
+   b. filter （对象不去重 NaN 会被忽略掉）
 
    ```js
    var array = [1, 2, 1, 1, '1'];
@@ -196,7 +196,7 @@
 
 7. **ES6模块与CommonJS模块的差异** 
 
-   1. CommonJs 模块输出的是一个值的拷贝，ES6模块输出的是一个值的引用
+   1. CommonJs 模块输出的是一个值的拷贝，ES6模块输出的是一个值的引用（esm运行时能修改输出值）
    2. CommonJS 模块是运行时加载，ES6模块是编译时输出接口
    3. ES6输入的模块变量，只是一个符号链接，所以这个变量是只读的，对它进行重新赋值就会报错
 
@@ -291,17 +291,7 @@
 
        
 
-16. JS为什么要区分微任务和宏任务；介绍宏任务和微任务
-
-    + 宏任务（macro-task）：宿主环境提供的，例如整体代码script ，setTimeout, setInterval, 事件回调
-
-      微任务（micro-task）：语言标准提供的，例如promise，process.nextTick， MutationObserver 
-
-    + 执行一个宏任务后，执行所有的微任务，再执行下一个宏任务。
 
 
- 
 
- 
 
- 
