@@ -41,7 +41,7 @@
   function add(...values) {
     let sum = 0;
   
-    for (var val of values) {
+    for (let val of values) {
       sum += val;
     }
   
