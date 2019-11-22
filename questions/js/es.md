@@ -178,13 +178,35 @@
 ## 8. Proxy
 
 + 支持操作：
-  + **get(target, propKey, receiver)** 
-  + **set(target, propKey, value, receiver)** 
+  + **get(target, propKey, receiver)** : any
+  
+  + **set(target, propKey, value, receiver)** : boolean
+  
   + **has(target, propKey)**  ： 拦截HasProperty 的操作，常见在 in 运算符
+  
   + **deleteProperty(target, propKey)** 
+  
   + **ownKeys(target)** ： 拦截对key的遍历
+  
   + **construct(target, args)** ：拦截 new
+  
   + 其他省略
+  
+  
+    ```js
+    var obj = new Proxy({}, {
+      get: function (target, key, receiver) {
+        console.log(`getting ${key}!`);
+        return Reflect.get(target, key, receiver);
+      },
+      set: function (target, key, value, receiver) {
+        console.log(`setting ${key}!`);
+        return Reflect.set(target, key, value, receiver);
+      }
+    });
+    ```
+  
+    
 
 ## 9. Reflect
 
@@ -412,3 +434,11 @@ hw.next()
 
     
 
+# 15. 箭头函数
+
+- 箭头函数是匿名函数，不能作为构造函数，不能使用new
+- 箭头函数不能绑定arguments，取而代之用rest(扩展运算符)参数...解决
+- 箭头函数不能绑定this，会捕获其所在的上下文的this值，作为自己的this值
+- 箭头函数通过call()或apply()方法调用一个函数时，只传入了一个参数，对 this 并没有影响。
+- 箭头函数没有原型属性
+- 箭头函数不能当做Generator函数,不能使用yield关键字

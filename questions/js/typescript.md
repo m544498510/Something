@@ -150,7 +150,15 @@ function create<T>(c: {new(): T; }): T {
 
 
 
+### 黑魔法
 
++ 子类类型声明: 
+
+  ```typescript
+  declare type ChildClass = { new (name: string): FatherClass };
+  ```
+
+  
 
 ##### 问题
 

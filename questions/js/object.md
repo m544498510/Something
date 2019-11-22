@@ -8,7 +8,7 @@
 
 2. 属性
 
-   + Object.definedProperty (obj, prop, descriptor )
+   + Object.definedProperty (obj, prop, descriptor )	（descriptor 必须完整，例如没加enmerable， 会被认为是不可枚举的）
    + Object.definedProperties( obj, { key : descriptor } )
 
    |                     | Configurable | enmerable | value | writable | get（func） | Set （func） |

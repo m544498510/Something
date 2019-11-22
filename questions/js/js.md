@@ -1,315 +1,150 @@
-1. js除了原型继承还有哪些其他的继承方式 
-
-   a. 原型继承
-
-   b. Call 继承（使用call直接修改this）
-
-   c. 遍历父类，手动添加方法和属性
-
-2. 数组去重的方法？ 
-
-   a. indexOf  (对象和NAN不去重)
-
-   b. filter （对象不去重 NaN 会被忽略掉）
-
-   ```js
-   var array = [1, 2, 1, 1, '1'];
-   
-   function unique(array) {
-       var res = array.filter(function(item, index, array){
-           return array.indexOf(item) === index;
-       })
-       return res;
-   }
-   
-   console.log(unique(array));
-   ```
-
-   c. Set (对象和NAN不去重)
-
-   ```js
-   const arr = [1,2,1,2];
-   const tmpSet = new Set(arr);
-   const result = [...tmpSet]
-   ```
-
-   d. Object
-
-   ```js
-   var array = [{value: 1}, {value: 1}, {value: 2}];
-   
-   function unique(array) {
-       var obj = {};
-       return array.filter(function(item, index, array){
-           console.log(typeof item + JSON.stringify(item))
-           return obj.hasOwnProperty(typeof item + JSON.stringify(item)) 
-               ? false 
-           	: (obj[typeof item + JSON.stringify(item)] = true)
-       })
-   }
-   
-   console.log(unique(array)); // [{value: 1}, {value: 2}]
-   
-   ```
-
-3. requestAnimationFrame原理？
-
-   Window.requestAnimationFrame(callback)
-
-   callback(timeStamp<DOMHighResTimeStamp>)
-
-   通过requestAnimationFrame注册方法，浏览器每次render前会调用这些注册方法，并且注册只起效一次。
-
-4. 1) 
-
-   ```js
-   setTimeout(() => console.log('a'), 0);
-   var p = new Promise((resolve) => {
-     console.log('b');
-     resolve();
-   });
-   p.then(() => console.log('c'));
-   p.then(() => console.log('d'));
-   console.log('e');
-   // 结果：b e c d a
-   // 任务队列优先级：promise.Trick()>promise的回调>setTimeout>setImmediate
-   ```
-
-   2)
-
-   ```js
-   async function async1() {
-       console.log("a");
-       await  async2(); //执行这一句后，await会让出当前线程，将后面的代码加到任务队列中，然后继续执行函数后面的同步代码
-       console.log("b");
-   
-   }
-   async function async2() {
-      console.log( 'c');
-   }
-   console.log("d");
-   setTimeout(function () {
-       console.log("e");
-   },0);
-   async1();
-   new Promise(function (resolve) {
-       console.log("f");
-       resolve();
-   }).then(function () {
-       console.log("g");
-   });
-   console.log('h');
-   // 在页面的script标签中运行结果：d a c f h b g e
-   // 直接在控制台中运行结果：      d a c f h g b e
-   
-   ```
-
-5. js bind 实现
-
-   ```js
-   Function.prototype.bind2 = function (context) {
-   
-       if (typeof this !== "function") {
-         throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
-       }
-   
-       var self = this;
-       var args = Array.prototype.slice.call(arguments, 1);
-   
-       var fNOP = function () {};
-   
-       var fBound = function () {
-           var bindArgs = Array.prototype.slice.call(arguments);
-           return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
-       }
-   
-       fNOP.prototype = this.prototype;
-       fBound.prototype = new fNOP();
-       return fBound;
-   }
-   
-   ```
-
-6. vue 中on，emit，off，once
-
-   ```JS
-   // 参照 vue 源码实现
-   var EventEmiter = function (){
-     this._events = {};
-   };
-   EventEmiter.prototype.on = function (event, cb){
-     if (Array.isArray(event)){
-       for (let i = 0, l = event.length; i < l; i++){
-         this.on(event[i], cb);
-       }
-     } else {
-       (this._events[event] || (this._events[event] = [])).push(cb);
-     }
-     return this;
-   };
-   EventEmiter.prototype.once = function (event, cb){
-     function on () {
-       this.off(event, cb);
-       cb.apply(this, arguments);
-     }
-     on.fn = cb;
-     this.on(event, on);
-     return this;
-   };
-   EventEmiter.prototype.off = function (event, cb){
-     if (!arguments.length){
-       this._events = Object.create(null);
-       return this;
-     }
-     if (Array.isArray(event)){
-       for (let i = 0, l = event.length; i < l; i++){
-         this.off(event[i],cb);
-       }
-       return this;
-     }
-     if (!cb){
-       this._events[event] = null;
-       return this;
-     }
-     if (cb){
-       let cbs = this._events[event];
-       let i = cbs.length;
-       while(i--){
-         if (cb === cbs[i] || cb === cbs[i].fn){
-           cbs.splice(i, 1);
-           break;
-         }
-       }
-       return this;
-     }
-   };
-   EventEmiter.prototype.emit = function (event){
-     let cbs = this._events[event];
-     let args = Array.prototype.slice.call(arguments, 1);
-     if (cbs){
-       for (let i = 0, l = cbs.length; i < l; i++){
-         cbs[i].apply(this,args);
-       }
-     }
-   };
-   ```
+# 内置类型
 
-7. **ES6模块与CommonJS模块的差异** 
+1. 7 种：null, undefined, number, string, Object, boolean 和 symbol
 
-   1. CommonJs 模块输出的是一个值的拷贝，ES6模块输出的是一个值的引用（esm运行时能修改输出值）
-   2. CommonJS 模块是运行时加载，ES6模块是编译时输出接口
-   3. ES6输入的模块变量，只是一个符号链接，所以这个变量是只读的，对它进行重新赋值就会报错
+2. `Null，Boolean，String，Number` 这些可以有固定长度，因此是基本类型，并且保存到了栈上。 
 
-8. js 有哪些数据类型 如何判断? null 和 undefined区别 应用场景?数据类型分别存在哪里 
+   `Object` 由于不可预知长度，并且可以 mutate，因此算引用类型，会被分配到了另一块区域，我们称之为堆（heap）。
 
-   + 基本数据类型：string, number，boolean，null，undefined，object，symbol
+#  Number
 
-   + 引用数据类型：object，array，function
+JS 至今没有真正的整数，我们用的number事实上是浮点数。 JavaScript 明确地使用了“双精度”（也就是“64位二进制”）格式。
 
-     ```js
-     typeof null === 'object'
-     ```
+这部分常考的一个点是精度问题。
 
-   + 引用类型可以用 instanceof 判断
+```js
+0.1 + 0.2 === 0.3; // falseCopy to clipboardErrorCopied
+```
 
-   + 基本数据类型存放在 栈内存 中，大小确定，可分配内存空间大小，按值存放
+- 为什么会这样？
 
-   + 引用类型放在 堆内存 中。保存的栈内存的指针。
+简单地说，0.1 和 0.2 的二进制表示形式是不精确的，所以它们相加时，结果不是精确地 0.3。而是 非常 接近的值：0.30000000000000004，但是如果你的比较失败了，“接近”是无关紧要的。
 
-9. new String('a') 和 'a' 是一样的么?
+- 如何解决？
 
-   new String 返回一个object
+最常见的做法是使用一个很小的“错误舍入”值作为比较的 容差。 这个很小的值经常被称为“机械极小值（machine epsilon）”， 对于 JavaScript 来说这种 number 通常为 Number.EPSILON。
 
-   
+```js
+function numbersCloseEnoughToEqual(n1,n2) {
+    return Math.abs( n1 - n2 ) < Number.EPSILON;
+}
 
-10. js浮点数运算不精确 如何解决?
+var a = 0.1 + 0.2;
+var b = 0.3;
 
-    某些小数在二进制下是无限循环数，四舍五入后就失真了，带着浮点计算有误差。
+numbersCloseEnoughToEqual( a, b );                    // true
+numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
+```
 
-    + toFixed 保留小数。
 
-    + 把要计算的数字升级（乘以10的n次幂）成计算机能够精确识别的整数，计算完以后再降级 
 
-      
+# 执行上下文（Execution Context）
 
-11. **TypedArrays**  
+- 函数执行前进行的准备工作（也称执行上下文环境）
 
-    用来处理二进制数据，分为两个部分：缓冲区和视图。 
+  - 准备阶段：
 
-    + 缓冲区由ArrayBuffer实现，一个缓冲区是一个代表某个数据块的对象。它没有格式，而且没有提供一个机制来访问或操纵其中的内容。 
-    + 视图提供了一个环境(context)，包括数据类型、起始偏移量以及元素数量。它把数据转化为实际上的类型化数组。视图由 ArrayBufferView和它的一些子类实现。 （[Int8Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int8Array) 、[Uint8Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array)、[Int16Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array)、[Uint16Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint16Array)、[Int32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Int32Array)、[Uint32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint32Array)、[Float32Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Float32Array)、[Float64Array](https://developer.mozilla.org/en/JavaScript_typed_arrays/Float64Array)  ）
+    1. 创建变量，包括arguments，提升函数声明，提升变量声明
 
-    
+    2. 生成作用域链
 
-12. **讨论与 Promise 相关的问题。**
+    3. 确定this指向
 
-    提示：尴尬的取消机制，用 then() 方法伪装 map() 和 flatMap() 等。
+  - 准备完就放入调用栈中。
 
-    取消机制： 直接throw 中断信号，后续用高阶函数包装.catch处理中断信号。
+  - 执行阶段：
 
-    //todo
+    1. 变量赋值
+    2. 函数引用
+    3. 执行代码
 
-    
+  - 调用完毕，弹出调用栈
 
-    
+- 类型：
 
-13. new是怎么实现的
+  - 全局执行上下文
+  - 函数执行上下文
 
-    (1) 创建一个新对象；
 
-     (2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象） ；
 
-     (3) 执行构造函数中的代码（为这个新对象添加属性） ；
+#  作用域
 
-     (4) 返回新对象。 
++ 作用域就是一套变量访问规则。
++ js采用的词法作用域模型，词法作用域意味着作用域是由书写代码时变量和函数声明的位置决定的。
++ 类型：
+  + 全局作用域
+  + 函数作用域
+  + 块级作用域
 
-    
+#  闭包
 
-14. JS里垃圾回收机制是什么？常用的是哪种？怎么处理的
++ 内部函数可以访问外部函数的变量。
++ 作用：
+  + 能够访问函数定义时所在的词法作用域(阻止其被回收)。
+  + 私有化变量
 
-    + 标记清除法 
+#  原型
 
-      在函数声明一个变量的时候，就将这个变量标记为“进入环境”。 。而当变量离开环境时，则将其标记为“离开环境”。 
+<img src="F:/webProject/myProject/blog/questions/resource/proto.jpg">
 
-    + 引用计数法 
+tip:  1). Object 和 Function 互为实例
 
-      引用计数的含义是跟踪记录每个值被引用的次数。 
+ 
 
-      
+#### 六、 ES6 的class 和 ES5 的类有什么区别
 
-15. JS执行过程中分为哪些阶段
+1. class只能new
+2. class为了保证子父类的顺序，没有变量提升
+3. 继承实现不一样：
+   + class 通过super 关键字，继承父类的this。
+   + ES5 是先有子类的this，再把父类应用到这个this上。
 
-    1. 预编译阶段
+#### 七、描述一下this
 
-       a. 给变量开辟内存空间，赋值undefined。
+###### 普通函数
 
-       b. 给函数声明开辟空间
+- this 总是指向函数的直接调用者
+- 如果有 new 关键字，this 指向 new 出来的实例对象
+- 在事件中，this 指向触发这个事件的对象
+- IE 下 attachEvent 中的 this 总是指向全局对象 Window
+- 箭头函数中，函数体内的`this`对象，就是定义时所在作用域的对象，而不是使用时所在的作用域的对象。
+- 直接调用的函数，this一定是window
 
-    2. 执行阶段
++ + 
 
-       开始依次执行
 
-       
-       
-       
 
-16. 模块循环引用问题
+#### 八、模块
 
-    + commonJS：
+##### **AMD-异步模块定义**
 
-      由于输出的是模块的缓存输出和其值的拷贝。
++ 依赖前置，在定义模块的时候就要声明其依赖的模块
++ AMD在加载模块完成后就会执行改模块，所有模块都加载执行完后会进入require的回调函数，执行主逻辑，这样的效果就是依赖模块的执行顺序和书写顺序不一定一致，看网络速度，哪个先下载下来，哪个先执行，但是主逻辑一定在所有依赖加载完成后才执行
++ 流程：
+  + 根据加载器规则寻找模块，并通过插入script标签异步加载；
+  + 在模块代码中通过词法分析找出依赖模块并加载，递归此过程直到依赖树末端；
+  + 绑定 `load` 事件，当依赖模块都加载完成时执行回调函数；
 
-      一旦发生循环引用，就只输出已经执行的部分。只会发生一次提前输出。
+#### **CMD** - Common Module Definition通用模块定义
 
-    + es module：
++ 就近依赖，只有在用到某个模块的时候再去require
 
-      import是动态引用，一开始只会生成一个引用，等到真的去用时才会去对应模块取值。
++ 加载完某个依赖模块后并不执行，只是下载而已，在所有依赖模块加载完成后进入主逻辑，遇到require语句的时候才执行对应的模块，这样模块的执行顺序和书写顺序是完全一致的
 
-      
 
 
+#### CommonJS
 
++ 输出拷贝
 
++ **模块被循环依赖时，只会输出当前执行完成的导出值**。也就是说，`b.js` 在依赖未执行完成的 `a.js` 时，并不会等待 `a.js` 执行完，而是直接输出当前执行过的 `export` 对象：
 
 
 
+#### ESM
+
++ 流程： **构建**、**实例化**和**运行**
+
++ 输出引用
++ import read-only 特性
++ 存在 export/import 提升

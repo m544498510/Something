@@ -1,10 +1,16 @@
-1. 怎样设置两列布局？ 
+1. 盒模型：
+
+   + content， padding，border， margin
+   + 标准：width = content width
+   + IE： width = border width + padding width + content width
+
+2. 怎样设置两列布局？ 
 
    + float+margin
    + flex
    + float+BFC
 
-2. CSS优先级 
+3. CSS优先级 
 
    + 行内样式 ,  加1000
 
@@ -20,7 +26,7 @@
 
      
 
-3. position属性介绍
+4. position属性介绍
 
    absolute, fixed, relative,  static（默认值）,  inherit
 
@@ -28,7 +34,7 @@
 
    
 
-4. display属性介绍
+5. display属性介绍
 
    + block: 块级元素（不设宽时，默认填满父元素）
    + inline：行内元素（不能更改宽高，大小由内部元素决定；padding和margin的top和bottom不起作用）
@@ -37,7 +43,7 @@
 
    
 
-5. BFC
+6. BFC
 
    Block Formatting Context是一个独立的布局环境，其中的元素布局是不受外界的影响。
 
@@ -65,7 +71,7 @@
 
    
 
-6. css有哪些垂直水平居中方式？
+7. css有哪些垂直水平居中方式？
 
    + 绝对定位 + transform
 
@@ -92,14 +98,49 @@
 
      
 
-7. Flexbox ？
+8. Flexbox ？
+
+   + <img src="./resource/flex.png">
 
    + display: flex
-   +  子元素属性：
-     + flex-grow：拉伸因子， 0 为不拉伸（初始值）；其他值为比重
-     + [`align-self`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-self) 侧轴上单个项目对齐方式
 
-8. 移动端适配
+   +  容器属性：
+     
+     + flex-direction:  主轴方向（row | row-reverse | column | column-reverse） 左上为起始
+     + flex-wrap: 控制换行 （nowrap | wrap | wrap-reverse）（reverser 只控制上下）
+     + flex-flow:  上面两个属性的简写（flex-flow: row nowrap）
+     
+     
+     
+     + justify-content: 主轴上的对齐方式（默认为 flex-start）
+     
+       <img src="./resource/flex-justify.png">
+     
+     + align-items: cross 上对齐方式 （默认为stretch）
+     
+       <img src="./resource/flex-cross.png">
+     
+     + align-content：多根轴线的对齐方式
+     
+       <img src="./resource/flex-double.png">
+     
+   + 子元素属性：
+
+     + flex-grow：拉伸因子， 0 为不拉伸（初始值）；其他值为比重
+
+     + flex-shrink：缩小比例，默认为1，即如果空间不足，该项目将缩小。（为0代表不缩小）
+
+     + flex-basis：在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为`auto`，即项目的本来大小。
+
+     + flex: 以上3个属性的简写。
+
+       
+
+     + order： 排列顺序，越小越排前，默认为0。
+
+     + [`align-self`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-self) ：侧轴上单个项目对齐方式，允许单个项目有与其他项目不一样的对齐方式，可覆盖`align-items`属性
+
+9. 移动端适配
 
    ```css
    @media (min-width:321px) and (max-width:320px){
@@ -107,7 +148,7 @@
    }
    ```
 
-9. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
+10. 浮动是什么，举个栗子，为什么需要清除浮动，有没有不需要清除的情况 
 
    + 浮点指脱离文档流。缺点是父元素无法获取子元素高度。
 
@@ -128,12 +169,21 @@
 
      + 让父元素成为BFC
 
-       
+11. nth-child(even/odd)
 
-10. CSS中的pixel与硬件/物理中的pixel有何不同？
+    ```css
+    // odd表示基数，此时选中基数行的样式，even表示偶数行
+    .row:nth-child(odd){
+        background: #eee;
+    }  
+    ```
+
+    
+
+12. CSS中的pixel与硬件/物理中的pixel有何不同？
 
     在小设备上，逻辑分辨率和物理分辨率是不同的。
 
     
 
-11. em和px的区别 
+13. em和px的区别 

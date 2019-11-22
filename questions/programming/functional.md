@@ -2,7 +2,7 @@
 
 ### 范畴论(category)
 
-+ 范畴：输入，输出及映射关系(态射)
++ 范畴：输入，输出及映射关系(物件和态射)
 
 + 函数的合成：如果一个值要经过多个函数，才能变成另外一个值，就可以把所有中间步骤合并成一个函数，这叫做"函数的合成"（compose）。
 
@@ -77,15 +77,57 @@
 
 
 
+#### 函子
+
+1. 函子
+
+   ```js
+   class Functor {
+     constructor(val) { 
+       this.val = val; 
+     }
+   
+     map(f) {
+       return new Functor(f(this.val));
+     }
+   }
+   ```
+
+   
+
+2. Either 函子 ( 优先使用右值 )
+
+```js
+class Either extends Functor {
+  constructor(left, right) {
+    this.left = left;
+    this.right = right;
+  }
+
+  map(f) {
+    return this.right ? 
+      Either.of(this.left, f(this.right)) :
+      Either.of(f(this.left), this.right);
+  }
+}	
+```
+
+
+
+3. 
+
+
+
 
 
 ### immutable
 
 1. - 优点：
-     - 降低Mutable带来的复杂度
      - 节省内存空间（结构共享，immutable库只会修改变化的节点和其父节点，可以理解为只重新创建出现变化的部分）
      - Undo/Redo，Copy/Paste 
      - 拥抱函数式编程
+     - 线程安全
+     - 数据比较的效率
    - 缺点：
      - 学习成本，额外引入资源
      - 容易和原生对象混淆
