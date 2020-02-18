@@ -1,0 +1,46 @@
+@startuml
+
+actor  user
+box "视图层" #bae7ff
+	participant BigScreen.jsx as bs
+	participant BigScreenViewer.jsx as bsv
+	participant ChartSliceForBS.jsx as chart
+	participant WidgetSliceForBS.jsx as widget
+end box
+
+box "数据层" #d9f7be
+participant "redux store" as store
+end box
+
+box "API层" #b5f5ec
+participant webSocket.js as socket
+participant api.js as api
+end box
+
+database  backend
+
+== 初始化阶段 ==
+user -> bs: 打开大屏页面
+bs -> bs : 从url中获取大屏Id
+bs -> store: 传递大屏id，获取大屏信息
+store -> api : fetch 获取大屏信息
+api -> backend : 通过https协议请求大屏信息
+backend --> api : 返回大屏信息
+api --> store: 返回大屏信息，并将大屏信息存储在redux store里
+store -> socket: 初始化webSocket
+socket -> backend: 建立socket连接，并推送大屏里的chart id list
+store --> bs: 返回大屏信息
+bs -> bsv : 传递大屏信息
+bsv -> widget: 传递widget信息
+widget -> widget: 根据信息渲染
+bsv -> chart: 传递chart信息
+chart -> store: 建立chart数据的监听
+chart -> chart: 根据chart 信息和store里的数据渲染图表
+
+==  自动更新阶段  ==
+backend -> socket: 推送发生变化的chart新数据
+socket -> store: 根据chart id 存储数据
+store -> chart: 通知chart 数据发生变化
+chart -> chart: 根据新数据渲染
+
+@enduml
